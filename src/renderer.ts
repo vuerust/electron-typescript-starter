@@ -4,8 +4,8 @@
 // nodeIntegration is set to true in webPreferences.
 // Use preload.js to selectively enable features
 // needed in the renderer process.
-const btnModifyTitle = document.getElementById('btnModifyTitle')
-const btnPing = document.getElementById('btnPing')
+const btnModifyTitle = document.getElementById('btn-modify-title')
+const btnPing = document.getElementById('btn-ping')
 
 btnModifyTitle?.addEventListener('click', () => {
   console.log("[*] button modify title clicked.");

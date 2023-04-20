@@ -1,32 +1,18 @@
-import { app, BrowserWindow, ipcMain } from "electron";
+import { app, BrowserWindow } from "electron";
 import * as path from "path";
-
-function ipcMainProcess() {
-  ipcMain.on('setTitle', (event, title) => {
-    console.log(`[*] new title: ${title}`);
-    const webContents = event.sender;
-    const win = BrowserWindow.fromWebContents(webContents)
-    win?.setTitle(title);
-  });
-
-  ipcMain.handle('ping', (event, value) => {
-    console.log(`[*] preload -> ipcMain, ipcMain receive data from preload: ${value}`);
-    return `${value} pong`;
-  });
-}
+import { ipcMainProcess } from "./ipcMain";
 
 function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     height: 600,
     webPreferences: {
-      nodeIntegration: true, 
       preload: path.join(__dirname, "preload.js"),
     },
     width: 800,
   });
 
-  ipcMainProcess();
+  ipcMainProcess(mainWindow);
 
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, "../index.html"));
